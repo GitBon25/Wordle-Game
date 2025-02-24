@@ -42,12 +42,36 @@
             border-radius: 8px;
             color: #000;
             transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes flip {
+            0% {
+                transform: rotateX(0deg);
+            }
+            50% {
+                transform: rotateX(90deg);
+            }
+            100% {
+                transform: rotateX(0deg);
+            }
         }
 
         body.dark-theme .cell {
             background-color: #333;
             border-color: #555;
-            color: #fff;
+            color: #ffffff;
         }
 
         .keyboard {
@@ -86,16 +110,19 @@
         .green {
             background-color: #6aaa64;
             color: white;
+            animation: flip 0.5s ease-in-out;
         }
 
         .yellow {
             background-color: #c9b458;
             color: white;
+            animation: flip 0.5s ease-in-out;
         }
 
         .gray {
             background-color: #787c7e;
             color: white;
+            animation: flip 0.5s ease-in-out;
         }
 
         body.dark-theme .green {
@@ -159,7 +186,7 @@
         }
 
         function startGame() {
-            targetWord = getRandomWord(); // Выбираем случайное слово
+            targetWord = getRandomWord();
             createGrid();
             createKeyboard();
         }
@@ -225,7 +252,7 @@
                     currentInput += key.toUpperCase(); // Добавляем букву, если введено меньше 5 символов
                 }
             }
-            updateGrid(); // Обновляем отображение сетки
+            updateGrid();
         }
 
         // Обновление сетки с текущим вводом
@@ -234,6 +261,7 @@
             for (let i = 0; i < 5; i++) {
                 const cell = cells[currentAttempt * 5 + i];
                 cell.textContent = currentInput[i] || ""; // Отображаем текущий ввод
+                cell.style.animation = "fadeIn 0.4s ease-in-out"; // Добавляем анимацию
             }
         }
 
@@ -254,6 +282,7 @@
             for (let i = 0; i < 5; i++) {
                 const cell = cells[currentAttempt * 5 + i];
                 cell.classList.add(result[i]); // Применяем цвет к ячейке
+                cell.style.animation = "flip 0.5s ease-in-out"; // Добавляем анимацию
             }
 
             updateKeyboardColors(result);
